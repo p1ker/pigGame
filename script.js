@@ -74,7 +74,7 @@ const currentScoreFunc = function (currentScoreRandom, player, sumCurrentScore) 
 };
 
 //Функция обнуления хода если выпала 1
-const moveNull = function (sumCurrentScore, currentScore) {
+const resetCurrentScore = function (sumCurrentScore, currentScore) {
   sumCurrentScore = 0;
   currentScore.textContent = sumCurrentScore;
   return sumCurrentScore;
@@ -89,7 +89,7 @@ const gameDice = function (playerFirst, playerSecond) {
     if (currentScoreRandom !== 1) {
       sumCurrentSFP = currentScoreFunc(currentScoreRandom, currentSFP, sumCurrentSFP);
     } else {
-      sumCurrentSFP = moveNull(sumCurrentSFP, currentSFP, playerFirst, playerSecond);
+      sumCurrentSFP = resetCurrentScore(sumCurrentSFP, currentSFP, playerFirst, playerSecond);
       changeActivePlayer(playerFirst,playerSecond);
     }
     return;
@@ -98,7 +98,7 @@ const gameDice = function (playerFirst, playerSecond) {
     if (currentScoreRandom !== 1) {
       sumCurrentSSP = currentScoreFunc(currentScoreRandom, currentSSP, sumCurrentSSP);
     } else {
-      sumCurrentSSP = moveNull(sumCurrentSSP, currentSSP, playerSecond, playerFirst);
+      sumCurrentSSP = resetCurrentScore(sumCurrentSSP, currentSSP, playerSecond, playerFirst);
       changeActivePlayer(playerSecond,playerFirst);
     }
   }
@@ -123,14 +123,14 @@ const winFunc = function (sumMain, playerWin, playerLose) {
 const gameLeave = function (playerFirst, playerSecond) {
   if (playerFirst.classList.contains('player--active')) {
     sumMainSFP = mainScoreFunc(mainSFP, currentSFP, sumMainSFP);
-    sumCurrentSFP = moveNull(sumCurrentSFP, currentSFP);
+    sumCurrentSFP = resetCurrentScore(sumCurrentSFP, currentSFP);
     changeActivePlayer(playerFirst,playerSecond);
     winFunc(sumMainSFP, playerFirst, playerSecond);
     return;
   } 
   if (playerSecond.classList.contains('player--active')) {
     sumMainSSP = mainScoreFunc(mainSSP, currentSSP, sumMainSSP);
-    sumCurrentSSP = moveNull(sumCurrentSSP, currentSSP);
+    sumCurrentSSP = resetCurrentScore(sumCurrentSSP, currentSSP);
     changeActivePlayer(playerSecond,playerFirst);
     winFunc(sumMainSSP, playerSecond, playerFirst);
   }
